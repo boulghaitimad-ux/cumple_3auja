@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡¡Feliz Cumpleaños!! 🤎</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts: Poppins & Caveat (Handwriting) -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brown: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            200: '#e4d0cb',
+                            300: '#d2b4ab',
+                            400: '#b88b7d',
+                            500: '#9e6757',
+                            600: '#835043',
+                            700: '#6d3f35',
+                            800: '#5b352e',
+                            900: '#4d2e29',
+                            950: '#2a1613',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        handwriting: ['Caveat', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animación suave de corazones flotantes de fondo */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0.6) rotate(0deg);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 7s linear infinite;
+        }
+
+        /* Sombras y acabados premium en tonos café/marrón */
+        .shadow-glow-brown {
+            box-shadow: 0 12px 35px -5px rgba(109, 63, 53, 0.35);
+        }
+
+        /* Animación de apertura suave de la carta */
+        .letter-transition {
+            transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out, transform 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-brown-950 via-brown-900 to-brown-800 text-brown-100 min-h-screen font-sans relative overflow-x-hidden pb-16">
+
+    <!-- Contenedor dinámico de corazones marrones flotantes -->
+    <div id="hearts-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+    <!-- Encabezado Principal -->
+    <header class="text-center pt-10 pb-6 px-4 relative z-10 max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 bg-brown-800/80 backdrop-blur-md px-5 py-2 rounded-full border border-brown-600/50 mb-5 shadow-lg">
+            <span class="text-xl">🤎</span>
+            <span class="text-brown-200 text-xs sm:text-sm font-semibold tracking-wider uppercase">1 año y pico de amistad incondicional</span>
+            <span class="text-xl">🤎</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brown-100 via-brown-200 to-brown-300 drop-shadow-md">
+            ¡¡Cumpleaños Feliz a mi Mejor Amiga!! 🎉
+        </h1>
+        <p class="text-brown-300 mt-3 text-base sm:text-lg font-light">
+            Un detalle único en tonos marrones preparado especialmente para ti 🤎
+        </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 mt-4 relative z-10 space-y-12">
+
+        <!-- Sección del Sobre / Carta Interactiva -->
+        <section class="bg-brown-900/70 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-brown-700/60 shadow-glow-brown text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-brown-100 mb-2 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-envelope text-brown-400"></i> Tu Carta Cumpleañera
+            </h2>
+            <p class="text-sm text-brown-300 mb-6">Haz clic en el botón para abrir o cerrar tu mensaje secreto</p>
+
+            <button id="toggleLetterBtn" onclick="toggleLetter()" class="bg-gradient-to-r from-brown-600 to-brown-500 hover:from-brown-500 hover:to-brown-400 text-white font-semibold py-3 px-8 rounded-full shadow-lg border border-brown-400/30 transform active:scale-95 transition-all mb-6 inline-flex items-center gap-2">
+                <i id="btnIcon" class="fa-solid fa-envelope-open"></i>
+                <span id="btnText">Abrir la Carta 📜</span>
+            </button>
+
+            <!-- Contenido de la Carta -->
+            <div id="letterWrapper" class="max-h-0 opacity-0 overflow-hidden letter-transition max-w-2xl mx-auto">
+                <div class="bg-brown-50 text-brown-950 p-6 sm:p-10 rounded-2xl shadow-2xl border-4 border-brown-300 text-left relative overflow-hidden">
+                    
+                    <!-- Elementos decorativos en la carta -->
+                    <div class="absolute -top-12 -right-12 w-36 h-36 bg-brown-200/50 rounded-full blur-xl pointer-events-none"></div>
+                    <div class="absolute -bottom-12 -left-12 w-36 h-36 bg-brown-300/30 rounded-full blur-xl pointer-events-none"></div>
+
+                    <div class="flex items-center justify-between border-b-2 border-brown-200 pb-4 mb-6">
+                        <span class="font-handwriting text-3xl font-bold text-brown-900">Para: Mi Mejor Amiga 🤎</span>
+                        <span class="text-3xl">🎂</span>
+                    </div>
+
+                    <!-- Mensaje manuscrito con faltas deliberadas -->
+                    <div class="font-handwriting text-2xl sm:text-3xl leading-relaxed text-brown-900 space-y-4">
+                        <p>
+                            Feliz cumplee a mi mejor amigaa!! Ya llevamos 1 año y pico siendo amigoss y la verda q me caes d locos.
+                        </p>
+                        <p class="bg-brown-200/60 p-3 rounded-xl border-l-4 border-brown-600 font-bold italic my-4 text-brown-950">
+                            Te deseo q sigas con muchos putos y sige mamando pollas hasta el fin de tu vida 🤎🤎
+                        </p>
+                        <p>
+                            jajajaj tq muchooo. Gracias x aguantarme este tiempo y x todos los momentos juntosss!! 🎉✨
+                        </p>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t border-brown-200 flex justify-between items-center text-sm font-sans text-brown-700">
+                        <span>Con mucho cariño 🤎</span>
+                        <span class="font-bold">1+ Año de Amistad</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería de Fotos / Recuerdos -->
+        <section class="bg-brown-900/70 backdrop-blur-md p-6 sm:p-10 rounded-3xl border border-brown-700/60 shadow-glow-brown">
+            <h2 class="text-2xl sm:text-3xl font-bold text-brown-100 mb-3 text-center flex items-center justify-center gap-3">
+                <i class="fa-solid fa-images text-brown-400"></i> Galería de Recuerdos
+            </h2>
+            <p class="text-center text-brown-300 text-sm mb-8">Nuestros mejores momentos juntos durante este año y pico 🤎</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                
+                <!-- Foto 1 -->
+                <div class="bg-brown-950/80 p-4 rounded-2xl border border-brown-700/80 shadow-xl group hover:border-brown-400 transition duration-300">
+                    <div class="relative overflow-hidden rounded-xl aspect-[9/16] max-h-[500px] flex items-center justify-center bg-brown-900">
+                      <img src="img/2.jpeg" alt="Foto Recuerdo 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                    <p class="mt-4 text-center text-brown-200 font-medium text-sm flex items-center justify-center gap-2">
+                        <span>9ahba 🤣🤎</span>
+                    </p>
+                </div>
+
+                <!-- Foto 2 -->
+                <div class="bg-brown-950/80 p-4 rounded-2xl border border-brown-700/80 shadow-xl group hover:border-brown-400 transition duration-300">
+                    <div class="relative overflow-hidden rounded-xl aspect-[9/16] max-h-[500px] flex items-center justify-center bg-brown-900">
+                     <img src="img/1.jpeg" alt="Foto Recuerdo 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <p class="mt-4 text-center text-brown-200 font-medium text-sm flex items-center justify-center gap-2">
+                        <span>Embobaba📞🤎</span>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Botón de Sorpresa Interactivo (Lanzador de Corazones y Confeti) -->
+        <section class="text-center py-4">
+            <button onclick="launchSurprise()" class="bg-gradient-to-r from-brown-600 via-brown-500 to-brown-600 hover:from-brown-500 hover:to-brown-400 text-white font-bold py-4 px-8 rounded-full shadow-2xl border-2 border-brown-300/40 transform active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto text-lg group">
+                <i class="fa-solid fa-heart text-2xl text-brown-200 group-hover:scale-125 transition-transform duration-300"></i>
+                <span>¡Lanzar Corazones Marrones y Fiesta! 🤎🎉</span>
+            </button>
+        </section>
+
+    </main>
+
+    <footer class="text-center text-brown-400 text-xs sm:text-sm mt-12 relative z-10">
+        <p>Hecho con 🤎 especialmente para el cumpleaños de mi mejor amiga</p>
+    </footer>
+
+    <!-- Lógica en JavaScript -->
+    <script>
+        // Control de apertura/cierre de la carta
+        let isLetterOpen = false;
+
+        function toggleLetter() {
+            const letterWrapper = document.getElementById('letterWrapper');
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+
+            if (!isLetterOpen) {
+                letterWrapper.style.maxHeight = '1000px';
+                letterWrapper.style.opacity = '1';
+                btnText.innerText = 'Cerrar Carta 📜';
+                btnIcon.className = 'fa-solid fa-envelope-circle-check';
+                isLetterOpen = true;
+                launchConfetti();
+            } else {
+                letterWrapper.style.maxHeight = '0px';
+                letterWrapper.style.opacity = '0';
+                btnText.innerText = 'Abrir la Carta 📜';
+                btnIcon.className = 'fa-solid fa-envelope-open';
+                isLetterOpen = false;
+            }
+        }
+
+        // Generador continuo de corazones flotantes
+        function createFloatingHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            
+            const icons = ['🤎', '🤎', '🤎', '✨', '🎂', '🤎'];
+            heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 22 + 16) + 'px';
+            
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Crear corazones periódicamente
+        setInterval(createFloatingHeart, 350);
+
+        // Lanzador de Confeti con tonos dorados y marrones
+        function launchConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 60,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#9e6757', '#d2b4ab', '#5b352e', '#f2e8e5', '#e4d0cb']
+                });
+            }
+        }
+
+        // Evento interactivo del botón principal
+        function launchSurprise() {
+            // Ráfaga masiva de corazones flotantes
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createFloatingHeart, i * 60);
+            }
+            // Disparo de confeti
+            launchConfetti();
+        }
+    </script>
+</body>
+</html>
